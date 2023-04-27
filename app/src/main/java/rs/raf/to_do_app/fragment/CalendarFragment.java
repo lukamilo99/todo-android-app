@@ -6,13 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
-
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.sql.Date;
@@ -24,17 +22,14 @@ import rs.raf.to_do_app.recycler.adapter.CalendarDayAdapter;
 import rs.raf.to_do_app.recycler.differ.CalendarDayDifferItemCallback;
 import rs.raf.to_do_app.util.DateUtil;
 import rs.raf.to_do_app.view.PageAdapter;
-import rs.raf.to_do_app.viewmodel.RecyclerViewModel;
+import rs.raf.to_do_app.viewmodel.SharedViewModel;
 
 public class CalendarFragment extends Fragment {
 
     private MainActivity mainActivity;
-
     private RecyclerView recyclerView;
-
-    private RecyclerViewModel recyclerViewModel;
-
     private CalendarDayAdapter calendarDayAdapter;
+    private SharedViewModel sharedViewModel;
 
     public CalendarFragment() {
         super(R.layout.fragment_calendar);
@@ -57,13 +52,14 @@ public class CalendarFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_calendar, container, false);
+        View view = inflater.inflate(R.layout.fragment_calendar, container, false);
+        initialize(view);
+        return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        initialize(view);
     }
 
     private void initialize(View view) {
@@ -74,11 +70,11 @@ public class CalendarFragment extends Fragment {
     }
 
     private void initializeModel() {
-        recyclerViewModel = new ViewModelProvider(this).get(RecyclerViewModel.class);
+        sharedViewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
     }
 
     private void initializeView(View view) {
-        recyclerView = view.findViewById(R.id.recyclerView);
+        recyclerView = view.findViewById(R.id.recyclerViewCalendar);
     }
 
     private void initializeListeners() {
@@ -92,15 +88,20 @@ public class CalendarFragment extends Fragment {
                 if (layoutManager != null) {
                     last = layoutManager.findLastCompletelyVisibleItemPosition();
                 }
-                TextView textView = (TextView) mainActivity.findViewById(R.id.monthName);
-                changeMonth(DateUtil.getMonthOfYear(last - 20), textView);
+                TextView textView = mainActivity.findViewById(R.id.monthName);
+                changeMonth(DateUtil.getMonthOfYear(last - 15), textView);
             }
         });
+        sharedViewModel.getCalendarDays().observe(getViewLifecycleOwner(), list -> calendarDayAdapter.submitList(list));
     }
 
     private void initializeRecycler() {
         calendarDayAdapter = new CalendarDayAdapter(new CalendarDayDifferItemCallback(), calendarDay ->
-                mainActivity.navigate(PageAdapter.FRAGMENT_DAILY_PLAN, View.VISIBLE), recyclerViewModel.getCalendarDays().getValue());
+        {
+            sharedViewModel.setTasks(calendarDay.getTaskList());
+            sharedViewModel.setCurrentCalendarDayId(calendarDay.getCalendarDayId());
+            mainActivity.navigate(PageAdapter.FRAGMENT_DAILY_PLAN, View.VISIBLE);
+        });
         GridLayoutManager layoutManager = new GridLayoutManager(mainActivity, 7);
         layoutManager.setOrientation(RecyclerView.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
@@ -118,7 +119,6 @@ public class CalendarFragment extends Fragment {
                 break;
             case 2:
                 textView.setText(R.string.march);
-
                 break;
             case 3:
                 textView.setText(R.string.april);

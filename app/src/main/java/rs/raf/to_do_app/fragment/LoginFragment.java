@@ -56,7 +56,7 @@ public class LoginFragment extends Fragment {
             String email = ((EditText) view.findViewById(R.id.emailEditText)).getText().toString().trim();
 
             String message = CredentialsChecker.authenticateUser(username, password, email);
-            
+
             if(message.equals(CredentialsChecker.VALID_CREDENTIALS)) {
                 SharedPreferences sharedPreferences =  requireActivity().getSharedPreferences(SHARED_PREFERENCES_KEY, Context.MODE_PRIVATE);
                 sharedPreferences

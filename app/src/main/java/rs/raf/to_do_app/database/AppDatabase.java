@@ -6,14 +6,14 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-import rs.raf.to_do_app.dao.CalendarDayDao;
+import rs.raf.to_do_app.dao.Dao;
 import rs.raf.to_do_app.model.CalendarDay;
 import rs.raf.to_do_app.model.Task;
 
 @Database(entities = {CalendarDay.class, Task.class}, exportSchema = false, version = 1)
 public abstract class AppDatabase extends RoomDatabase {
 
-    public abstract CalendarDayDao calendarDayDao();
+    public abstract Dao calendarDayDao();
 
     private static AppDatabase instance;
 
@@ -31,7 +31,7 @@ public abstract class AppDatabase extends RoomDatabase {
     private static void addCalendarDays(AppDatabase instance) {
         for(int i = 2; i < 366; i++) {
             CalendarDay calendarDay = new CalendarDay(i);
-            instance.calendarDayDao().insertCalendarDay(calendarDay);
+            instance.calendarDayDao().insertCalendarDayWithTasks(calendarDay);
         }
     }
 }

@@ -4,6 +4,7 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -17,6 +18,7 @@ public class CalendarDay {
 
     public CalendarDay(long calendarDayId) {
         this.calendarDayId = calendarDayId;
+        this.taskList = new ArrayList<>();
     }
 
     public long getCalendarDayId() {
@@ -34,4 +36,9 @@ public class CalendarDay {
     public void setTaskList(List<Task> taskList) {
         this.taskList = taskList;
     }
+
+    public void addTask(Task task) {
+        this.taskList.add(task);
+    }
+
 }

@@ -6,27 +6,27 @@ import androidx.room.PrimaryKey;
 @Entity
 public class Task {
 
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey//(autoGenerate = true)
     private long taskId;
 
     private long calendarDayId;
 
     private String name;
 
-    private String creationDate;
+    private String startTime;
 
-    private String expireDate;
+    private String endTime;
 
     private String priority;
 
     private String description;
 
-    public Task(long taskId, long calendarDayId, String name, String creationDate, String expireDate, String priority, String description) {
-        this.taskId = taskId;
+    public Task(long calendarDayId, String name, String startTime, String endTime, String priority, String description) {
+        this.taskId = System.currentTimeMillis();
         this.calendarDayId = calendarDayId;
         this.name = name;
-        this.creationDate = creationDate;
-        this.expireDate = expireDate;
+        this.startTime = startTime;
+        this.endTime = endTime;
         this.priority = priority;
         this.description = description;
     }
@@ -55,20 +55,20 @@ public class Task {
         this.name = name;
     }
 
-    public String getCreationDate() {
-        return creationDate;
+    public String getStartTime() {
+        return startTime;
     }
 
-    public void setCreationDate(String creationDate) {
-        this.creationDate = creationDate;
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
     }
 
-    public String getExpireDate() {
-        return expireDate;
+    public String getEndTime() {
+        return endTime;
     }
 
-    public void setExpireDate(String expireDate) {
-        this.expireDate = expireDate;
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
     }
 
     public String getPriority() {

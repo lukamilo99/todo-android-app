@@ -14,7 +14,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        android:text="@string/april"
         android:gravity="center"
         android:textAppearance="?android:textAppearanceMedium"/>
 
@@ -30,7 +29,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Pon"
+            android:text="Mon"
             android:textAlignment="center"
             android:textAppearance="?android:textAppearanceSmall"/>
 
@@ -38,7 +37,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Uto"
+            android:text="Tue"
             android:textAlignment="center"
             android:textAppearance="?android:textAppearanceSmall"/>
 
@@ -46,7 +45,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Sre"
+            android:text="Wed"
             android:textAlignment="center"
             android:textAppearance="?android:textAppearanceSmall"/>
 
@@ -54,7 +53,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Čet"
+            android:text="Thu"
             android:textAlignment="center"
             android:textAppearance="?android:textAppearanceSmall"/>
 
@@ -62,7 +61,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Pet"
+            android:text="Fri"
             android:textAlignment="center"
             android:textAppearance="?android:textAppearanceSmall"/>
 
@@ -70,7 +69,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Sub"
+            android:text="Sat"
             android:textAlignment="center"
             android:textAppearance="?android:textAppearanceSmall"/>
 
@@ -78,14 +77,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Ned"
+            android:text="Sun"
             android:textAlignment="center"
             android:textAppearance="?android:textAppearanceSmall"/>
 
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/recyclerViewCalendar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
